@@ -70,7 +70,11 @@ function AddCardSheet({ onSave, onClose }) {
     const errs = [];
     if (!/^[A-Za-z\s]+$/.test(name.trim()))
       errs.push('Name must contain letters only (A–Z).');
-    const yy = parseInt(expiry.split('/')[1], 10);
+    const [mmStr, yyStr] = expiry.split('/');
+    const mm = parseInt(mmStr, 10);
+    const yy = parseInt(yyStr, 10);
+    if (isNaN(mm) || mm < 1 || mm > 12)
+      errs.push('Expiration month must be between 01 and 12.');
     if (isNaN(yy) || yy < 26)
       errs.push('Expiration year must be 2026 or later.');
     if (errs.length) {
