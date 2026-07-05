@@ -49,16 +49,16 @@ function AddCardSheet({ onSave, onClose }) {
   const [expiry, setExpiry] = useState('');
   const [cvv, setCvv] = useState('');
   const [name, setName] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState([]);
 
   const handleCardNum = (e) => {
-    setError('');
+    setError([]);
     const digits = e.target.value.replace(/\D/g, '').slice(0, 16);
     setCardNum(digits.replace(/(.{4})/g, '$1 ').trim());
   };
 
   const handleExpiry = (e) => {
-    setError('');
+    setError([]);
     const digits = e.target.value.replace(/\D/g, '').slice(0, 4);
     setExpiry(digits.length > 2 ? `${digits.slice(0, 2)}/${digits.slice(2)}` : digits);
   };
@@ -67,16 +67,17 @@ function AddCardSheet({ onSave, onClose }) {
   const canSave = rawDigits.length === 16 && expiry.length === 5 && cvv.length >= 3 && name.trim().length > 0;
 
   const handleSave = () => {
-    if (!/^[A-Za-z\s]+$/.test(name.trim())) {
-      setError('Name must contain letters only (A–Z). Please verify your info.');
-      return;
-    }
+    const errs = [];
+    if (!/^[A-Za-z\s]+$/.test(name.trim()))
+      errs.push('Name must contain letters only (A–Z).');
     const yy = parseInt(expiry.split('/')[1], 10);
-    if (isNaN(yy) || yy < 26) {
-      setError('Expiration year must be 2026 or later. Please verify your info.');
+    if (isNaN(yy) || yy < 26)
+      errs.push('Expiration year must be 2026 or later.');
+    if (errs.length) {
+      setError(errs);
       return;
     }
-    setError('');
+    setError([]);
     const { brand, bgColor, label } = detectBrand(rawDigits);
     onSave({ brand, bgColor, label, last4: rawDigits.slice(-4), expiry });
   };
@@ -126,7 +127,7 @@ function AddCardSheet({ onSave, onClose }) {
             <label className={labelClass}>CVV</label>
             <input
               value={cvv}
-              onChange={e => { setError(''); setCvv(e.target.value.replace(/\D/g, '').slice(0, 4)); }}
+              onChange={e => { setError([]); setCvv(e.target.value.replace(/\D/g, '').slice(0, 4)); }}
               placeholder="123"
               inputMode="numeric"
               className={inputClass}
@@ -138,7 +139,7 @@ function AddCardSheet({ onSave, onClose }) {
           <label className={labelClass}>Name on Card</label>
           <input
             value={name}
-            onChange={e => { setError(''); setName(e.target.value); }}
+            onChange={e => { setError([]); setName(e.target.value); }}
             placeholder="Jane Smith"
             className={inputClass}
           />
@@ -154,10 +155,12 @@ function AddCardSheet({ onSave, onClose }) {
           Save Card
         </button>
 
-        {error && (
-          <p className="text-red-500 text-xs text-center font-medium leading-snug -mt-1">
-            {error}
-          </p>
+        {error.length > 0 && (
+          <div className="text-red-500 text-xs font-medium leading-snug -mt-1 space-y-0.5">
+            {error.map((msg, i) => (
+              <p key={i} className="text-center">{msg}</p>
+            ))}
+          </div>
         )}
       </div>
     </div>
