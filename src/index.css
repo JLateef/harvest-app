@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  body {
+    background-color: #6b7280;
+    margin: 0;
+  }
+}
+
+@layer utilities {
+  .phone-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .phone-scroll::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes punch-pop {
+  0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
+  60%  { transform: scale(1.35) rotate(5deg); }
+  80%  { transform: scale(0.9) rotate(-2deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.punch-new {
+  animation: punch-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes check-draw {
+  0%   { transform: scale(0.3); opacity: 0; }
+  60%  { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.check-appear {
+  animation: check-draw 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Splash → menu transition */
+@keyframes splash-exit {
+  to { opacity: 0; transform: translateY(-14px) scale(0.97); }
+}
+.splash-exit {
+  animation: splash-exit 0.48s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+/* Menu entrance (from splash) */
+@keyframes menu-reveal {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Splash screen animations */
+@keyframes splash-fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes splash-leaf {
+  from { opacity: 0; transform: scale(0.4) rotate(-20deg); }
+  60%  { transform: scale(1.12) rotate(4deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes splash-line-grow {
+  from { width: 0; opacity: 0; }
+  to   { width: 3rem; opacity: 1; }
+}
+
+.splash-leaf {
+  animation: splash-leaf 1s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+  animation-delay: 0.2s;
+}
+
+.splash-title {
+  animation: splash-fade-up 0.9s ease-out both;
+  animation-delay: 0.85s;
+}
+
+.splash-divider {
+  animation: splash-line-grow 0.7s ease-out both;
+  animation-delay: 1.45s;
+}
+
+.splash-slogan-1 {
+  animation: splash-fade-up 0.9s ease-out both;
+  animation-delay: 1.75s;
+}
+
+.splash-slogan-2 {
+  animation: splash-fade-up 0.9s ease-out both;
+  animation-delay: 2.15s;
+}
+
+.splash-tagline {
+  animation: splash-fade-up 0.9s ease-out both;
+  animation-delay: 2.55s;
+}
+
+.splash-btn {
+  animation: splash-fade-up 0.9s ease-out both;
+  animation-delay: 3.0s;
+}
