@@ -160,6 +160,9 @@ function AddCardSheet({ onSave, onClose }) {
             {error.map((msg, i) => (
               <p key={i} className="text-center">{msg}</p>
             ))}
+            {error.length > 1 && (
+              <p className="text-center font-semibold">Please verify info and resubmit.</p>
+            )}
           </div>
         )}
       </div>
