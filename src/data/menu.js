@@ -47,6 +47,8 @@ export const menuItems = {
       bgColor: '#FFE4B5',
       category: 'sandwiches',
       seasonal: true,
+      seasonLabel: 'Summer Menu',
+      seasonEmoji: '☀️',
       ingredients: ['chickpeas', 'caramelized onions', 'smoked gouda', 'arugula', 'chipotle mayo'],
       addOns: [
         { id: 'extra-chickpeas', name: 'Extra Chickpeas', price: 1.00 },

@@ -42,7 +42,7 @@ function ItemCard({ item, onPress, style }) {
               <span className="font-semibold text-gray-900 text-sm leading-tight">{item.name}</span>
               {item.seasonal && (
                 <span className="bg-accent text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wide flex-shrink-0">
-                  🌱 Spring Menu
+                  {item.seasonEmoji ?? '🌱'} {item.seasonLabel ?? 'Spring Menu'}
                 </span>
               )}
             </div>
