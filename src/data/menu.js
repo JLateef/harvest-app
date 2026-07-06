@@ -24,7 +24,7 @@ export const menuItems = {
       name: 'Green Goddess Wrap',
       description: 'Mixed greens, feta, cucumber, tomato & green goddess dressing',
       price: 9.50,
-      emoji: '🥙',
+      emoji: '🌯',
       bgColor: '#D4EDDA',
       category: 'sandwiches',
       seasonal: false,
